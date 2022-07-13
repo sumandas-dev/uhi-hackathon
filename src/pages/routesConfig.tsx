@@ -19,25 +19,17 @@ export interface RouterConfigData {
 const routesConfig: RouterConfigData[] = [
   {
     id: "app",
-    title: "Sample",
-    messageId: "sidebar.sample",
+    title: "UHI",
+    messageId: "sidebar.uhi",
     type: "group",
     children: [
       {
-        id: "page-1",
-        title: "Page 1",
-        messageId: "sidebar.sample.page1",
+        id: "appointment",
+        title: "Appointment",
+        messageId: "sidebar.uhi.appointment",
         type: "item",
         icon: <BiAlignLeft />,
-        url: "/sample/page-1",
-      },
-      {
-        id: "page-2",
-        title: "Page 2",
-        messageId: "sidebar.sample.page2",
-        type: "item",
-        icon: <BiAlignLeft />,
-        url: "/sample/page-2",
+        url: "/uhi/appointment",
       },
     ],
   },

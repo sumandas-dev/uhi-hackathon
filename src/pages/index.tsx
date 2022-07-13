@@ -3,7 +3,7 @@ import { initialUrl } from "shared/constants/AppConst";
 import Error403 from "./errorPages/Error403";
 import React from "react";
 import { errorPagesConfigs } from "./errorPages";
-import { samplePagesConfigs } from "./sample";
+import { samplePagesConfigs } from "./uhi";
 import { profilePage } from "./profile";
 
 const authorizedStructure = {

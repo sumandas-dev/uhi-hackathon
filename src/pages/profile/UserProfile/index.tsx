@@ -32,21 +32,21 @@ const tabs = [
     icon: <AiOutlineLock />,
     name: <IntlMessages id="common.changePassword" />,
   },
-  {
-    id: 3,
-    icon: <IoMdInformationCircleOutline />,
-    name: <IntlMessages id="common.information" />,
-  },
-  {
-    id: 4,
-    icon: <IoShareSocialOutline />,
-    name: <IntlMessages id="common.social" />,
-  },
-  {
-    id: 5,
-    icon: <NotificationsNoneIcon />,
-    name: <IntlMessages id="healthCare.notification" />,
-  },
+  // {
+  //   id: 3,
+  //   icon: <IoMdInformationCircleOutline />,
+  //   name: <IntlMessages id="common.information" />,
+  // },
+  // {
+  //   id: 4,
+  //   icon: <IoShareSocialOutline />,
+  //   name: <IntlMessages id="common.social" />,
+  // },
+  // {
+  //   id: 5,
+  //   icon: <NotificationsNoneIcon />,
+  //   name: <IntlMessages id="healthCare.notification" />,
+  // },
 ];
 
 const Account = () => {

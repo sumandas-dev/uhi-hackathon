@@ -46,7 +46,7 @@ const ChangePassword = () => {
         initialValues={{
           oldPassword: "",
           newPassword: null,
-          retypeNewPassword: "us",
+          retypeNewPassword: "",
         }}
         validationSchema={validationSchema}
         onSubmit={(data, { setSubmitting }) => {

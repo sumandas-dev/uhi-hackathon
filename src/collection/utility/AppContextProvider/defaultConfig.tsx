@@ -230,7 +230,7 @@ const defaultConfig = {
   },
   themeStyle: ThemeStyle.STANDARD,
   themeMode: ThemeMode.LIGHT,
-  navStyle: NavStyle.DEFAULT,
+  navStyle: NavStyle.HOR_HEADER_FIXED,
   layoutType: LayoutType.FULL_WIDTH,
   footerType: FooterType.FLUID,
   headerType: HeaderType.FIXED,

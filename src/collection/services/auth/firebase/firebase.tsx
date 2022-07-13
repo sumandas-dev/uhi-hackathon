@@ -1,18 +1,16 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 // Initialize Firebase
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAzL_2jiVBhmiIUFGs2z6-cDR-Hgoedh3k",
-  authDomain: "crema-react.firebaseapp.com",
-  databaseURL: "https://crema-react.firebaseio.com",
-  projectId: "crema-react",
-  storageBucket: "crema-react.appspot.com",
-  messagingSenderId: "369173776768",
-  appId: "1:369173776768:web:895ded916749deebd31965",
-  measurementId: "G-976YVMRB4R",
+  apiKey: "AIzaSyD-p6_f5XGsqY-ZHEOFurZczCUiNLYU1yI",
+  authDomain: "test-f2c9f.firebaseapp.com",
+  projectId: "test-f2c9f",
+  storageBucket: "test-f2c9f.appspot.com",
+  messagingSenderId: "403421721848",
+  appId: "1:403421721848:web:7ee3f09fb8b66a2de4f70d",
 };
 
 firebase.initializeApp(firebaseConfig);

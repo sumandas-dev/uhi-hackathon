@@ -34,7 +34,6 @@ const HorHeaderFixed = () => {
           <AppContentView />
           <AppFixedFooter />
         </MainContent>
-        <AppThemeSetting />
       </HorHeaderFixedWrapper>
     </HorHeaderFixedContainer>
   );

@@ -97,6 +97,7 @@ const AppHeader = () => {
                 "& .logo-text": {
                   display: { xs: "none", sm: "block" },
                 },
+                width: 200,
               }}
             >
               <AppLogo />
@@ -141,23 +142,6 @@ const AppHeader = () => {
                 flexGrow: 1,
               }}
             />
-            <Box
-              sx={{
-                minHeight: 40,
-                position: "relative",
-                display: { xs: "none", sm: "block" },
-                "& .searchRoot": {
-                  position: { xs: "absolute", sm: "relative" },
-                  right: { xs: 0, sm: "auto" },
-                  top: { xs: 0, sm: "auto" },
-                },
-              }}
-            >
-              <AppSearchBar iconPosition="right" placeholder="Search…" />
-            </Box>
-            <Box sx={{ ml: 4 }}>
-              <AppLngSwitcher iconOnly={true} tooltipPosition="bottom" />
-            </Box>
 
             <Box
               sx={{
@@ -166,33 +150,6 @@ const AppHeader = () => {
                 alignItems: "center",
               }}
             >
-              <Hidden smDown>
-                <Box
-                  sx={{
-                    position: "relative",
-                    display: "flex",
-                    alignItems: "center",
-                    marginLeft: -2,
-                    marginRight: -2,
-                  }}
-                >
-                  <Box
-                    sx={{
-                      px: 1.85,
-                    }}
-                  >
-                    <AppNotifications />
-                  </Box>
-                  <Box
-                    sx={{
-                      px: 1.85,
-                    }}
-                  >
-                    <AppMessages />
-                  </Box>
-                </Box>
-              </Hidden>
-
               <Box
                 sx={{
                   ml: { sm: 4 },

@@ -41,8 +41,8 @@ const SigninFirebase = () => {
         <Formik
           validateOnChange={true}
           initialValues={{
-            email: "crema.demo@gmail.com",
-            password: "Pass@1!@all",
+            email: "test@gmail.com",
+            password: "secret",
           }}
           validationSchema={validationSchema}
           onSubmit={(data, { setSubmitting }) => {
@@ -179,62 +179,7 @@ const SigninFirebase = () => {
           py: 2,
           px: { xs: 5, lg: 10 },
         }}
-      >
-        <Box
-          sx={{
-            color: (theme) => theme.palette.text.secondary,
-          }}
-        >
-          <IntlMessages id="common.orLoginWith" />
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <IconButton
-            sx={{
-              p: 2,
-              "& svg": { fontSize: 18 },
-              color: (theme) => theme.palette.text.secondary,
-            }}
-            onClick={() => signInWithPopup("google")}
-          >
-            <AiOutlineGoogle />
-          </IconButton>
-          <IconButton
-            sx={{
-              p: 1.5,
-              "& svg": { fontSize: 18 },
-              color: (theme) => theme.palette.text.secondary,
-            }}
-            onClick={() => signInWithPopup("facebook")}
-          >
-            <FaFacebookF />
-          </IconButton>
-          <IconButton
-            sx={{
-              p: 1.5,
-              "& svg": { fontSize: 18 },
-              color: (theme) => theme.palette.text.secondary,
-            }}
-            onClick={() => signInWithPopup("github")}
-          >
-            <BsGithub />
-          </IconButton>
-          <IconButton
-            sx={{
-              p: 1.5,
-              "& svg": { fontSize: 18 },
-              color: (theme) => theme.palette.text.secondary,
-            }}
-            onClick={() => signInWithPopup("twitter")}
-          >
-            <AiOutlineTwitter />
-          </IconButton>
-        </Box>
-      </Box>
+      ></Box>
 
       <AppInfoView />
     </Box>

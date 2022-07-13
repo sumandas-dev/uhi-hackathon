@@ -9,7 +9,7 @@ import { profilePage } from "./profile";
 const authorizedStructure = {
   fallbackPath: "/signin",
   unAuthorizedComponent: <Error403 />,
-  routes: [...samplePagesConfigs, ...profilePage],
+  routes: [...profilePage, ...samplePagesConfigs],
 };
 
 const unAuthorizedStructure = {

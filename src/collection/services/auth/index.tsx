@@ -1,1 +1,1 @@
-import "./jwt-auth";
+import "./firebase";

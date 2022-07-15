@@ -16,7 +16,9 @@ const Signin = () => {
               alignItems: "center",
             }}
           >
-            <AppLogo />
+            <Box sx={{ paddingX: { xs: 20, sm: 10 } }}>
+              <AppLogo />
+            </Box>
           </Box>
         </Box>
 

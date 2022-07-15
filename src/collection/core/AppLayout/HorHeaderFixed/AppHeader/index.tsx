@@ -97,7 +97,7 @@ const AppHeader = () => {
                 "& .logo-text": {
                   display: { xs: "none", sm: "block" },
                 },
-                width: 200,
+                width: 150,
               }}
             >
               <AppLogo />

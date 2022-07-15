@@ -1,6 +1,7 @@
 export interface IDoctorProfile {
   name: string;
   degree: string;
+  imageUrl: string;
   hprAddress: string;
   languages: string;
   exp: string;

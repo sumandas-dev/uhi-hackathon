@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Box, Grid, Paper, Stack } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Box, Grid } from "@mui/material";
 import { Filter } from "./filter";
-import { SocketTest } from "./socket";
 import { IDoctorFilter } from "./interfaces/doctor-filter.interface";
 import { UHI } from "../../../collection/services/uhi";
 import { io } from "socket.io-client";
@@ -28,7 +27,7 @@ const Appointment = () => {
 
     socket.on(_messageId, (data) => {
       console.log(data);
-      discoveryResponses.push(data);
+      setDiscoveryResponses([...discoveryResponses, data]);
     });
     setTimeout(() => {
       console.log("ttl hit");

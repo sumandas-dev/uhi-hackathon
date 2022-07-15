@@ -1,22 +1,23 @@
 import { Button, MenuItem, Paper, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { AppInput } from "../components/AppInput";
-import { AppSelect } from "../components/AppSelect";
-import {
-  IDoctorFilter,
-  listOfCities,
-  listOfConsultationTypes,
-  listOfLanguages,
-  listOfSpecialties,
-  listOfSystemOfMedicines,
-  SearchWith,
-} from "./interfaces/doctor-filter.interface";
+
 import { capitalCase } from "change-case";
 // import "react-date-range/dist/styles.css";
 // import "react-date-range/dist/theme/default.css";
 // import { DateRangePicker } from "react-date-range";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { Box } from "@mui/system";
+import { AppInput } from "../../components/AppInput";
+import { AppSelect } from "../../components/AppSelect";
+import {
+  IDoctorFilter,
+  SearchWith,
+  listOfConsultationTypes,
+  listOfCities,
+  listOfSpecialties,
+  listOfSystemOfMedicines,
+  listOfLanguages,
+} from "../interfaces/doctor-filter.interface";
 export const Filter = ({
   onApply,
 }: {

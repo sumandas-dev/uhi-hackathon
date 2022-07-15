@@ -6,9 +6,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { styled } from "@mui/material/styles";
-import AppCard from "../../../collection/core/AppCard";
-import { Fonts } from "../../../shared/constants/AppEnums";
-import { IDoctorProfile } from "./interfaces/doctor-profile.interface";
+import AppCard from "../../../../collection/core/AppCard";
+import { Fonts } from "../../../../shared/constants/AppEnums";
+import { IDoctorProfile } from "../interfaces/doctor-profile.interface";
 import { Chip } from "@mui/material";
 
 const UserInfo = styled("div")(({ theme }) => ({

@@ -1,8 +1,8 @@
-import Appointment from "./appointment";
+import Doctors from "./appointment/doctors";
 
 export const samplePagesConfigs = [
   {
-    path: "/uhi/appointment",
-    element: <Appointment />,
+    path: "/uhi/doctors",
+    element: <Doctors />,
   },
 ];

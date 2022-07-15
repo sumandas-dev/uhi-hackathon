@@ -24,12 +24,12 @@ const routesConfig: RouterConfigData[] = [
     type: "group",
     children: [
       {
-        id: "appointment",
-        title: "Appointment",
-        messageId: "sidebar.uhi.appointment",
+        id: "doctors",
+        title: "Doctors",
+        messageId: "sidebar.uhi.doctors",
         type: "item",
         icon: <BiAlignLeft />,
-        url: "/uhi/appointment",
+        url: "/uhi/doctors",
       },
     ],
   },

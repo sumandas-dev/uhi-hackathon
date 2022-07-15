@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { Box, CircularProgress, Grid, Paper, Typography } from "@mui/material";
 import { Filter } from "./filter";
-import { IDoctorFilter } from "./interfaces/doctor-filter.interface";
-import { UHI } from "../../../collection/services/uhi";
+import { IDoctorFilter } from "../interfaces/doctor-filter.interface";
+import { UHI } from "../../../../collection/services/uhi";
 import { io } from "socket.io-client";
 import { nanoid } from "nanoid";
-import { DiscoveryResponseModel } from "../model/discovery-response-model";
+import { DiscoveryResponseModel } from "../../model/discovery-response-model";
 import { DoctorGrid } from "./DoctorGrid";
-import { IDoctorProfile } from "./interfaces/doctor-profile.interface";
-import { euaSocketEndpoint } from "../../../shared/constants/uhi-constants";
+import { IDoctorProfile } from "../interfaces/doctor-profile.interface";
+import { euaSocketEndpoint } from "../../../../shared/constants/uhi-constants";
 import SearchIcon from "@mui/icons-material/Search";
 
-const Appointment = () => {
+const Doctors = () => {
   const uhi = UHI.getInstance();
   const socket = io(euaSocketEndpoint, {
     withCredentials: true,
@@ -141,4 +141,4 @@ const EmptyMessage = ({ message }: { message: string }) => {
   );
 };
 
-export default Appointment;
+export default Doctors;

@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import React from "react";
+import { IDoctorProfile } from "../interfaces/doctor-profile.interface";
 import DoctorCard from "./DoctorCard";
-import { IDoctorProfile } from "./interfaces/doctor-profile.interface";
 
 export const DoctorGrid = ({ doctors }: { doctors: IDoctorProfile[] }) => {
   return (

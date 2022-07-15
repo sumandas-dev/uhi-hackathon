@@ -7,10 +7,10 @@ import { Fulfillment } from "./fulfillment";
 export class DiscoveryProviders {
   id: string;
   descriptor: DiscoveryDescriptor;
-  locations: DiscoveryLocations[];
-  categories: DiscoveryCategories[];
-  items: DiscoveryItems[];
-  fulfillments: Fulfillment[];
+  locations: DiscoveryLocations[] = [];
+  categories: DiscoveryCategories[] = [];
+  items: DiscoveryItems[] = [];
+  fulfillments: Fulfillment[] = [];
 
   static fromJson(json: Record<string, any>) {
     const obj = new DiscoveryProviders();

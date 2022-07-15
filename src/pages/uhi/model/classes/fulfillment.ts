@@ -53,7 +53,7 @@ export class Time {
   };
   static fromJson(json: Record<string, any>) {
     const obj = new Time();
-    obj.time.timestamp = json["time"]["timestamp"];
+    obj.time = json["time"];
     return obj;
   }
   toJson() {

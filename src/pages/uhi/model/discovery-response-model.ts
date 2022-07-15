@@ -5,7 +5,7 @@ export class DiscoveryResponseModel {
   context: DiscoveryContext;
   message: DiscoveryMessage;
 
-  fromJson(json: Record<string, any>) {
+  static fromJson(json: Record<string, any>) {
     const obj = new DiscoveryResponseModel();
     obj.context =
       json["context"] != null
@@ -15,6 +15,8 @@ export class DiscoveryResponseModel {
       json["message"] != null
         ? DiscoveryMessage.fromJson(json["message"])
         : null;
+
+    return obj;
   }
   toJson() {
     const data: Record<string, any> = {};

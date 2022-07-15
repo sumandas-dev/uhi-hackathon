@@ -4,8 +4,8 @@ import { Fulfillment } from "./fulfillment";
 
 export class DiscoveryCatalog {
   descriptor: DiscoveryDescriptor;
-  providers: DiscoveryProviders[];
-  fulfillments: Fulfillment[];
+  providers: DiscoveryProviders[] = [];
+  fulfillments: Fulfillment[] = [];
 
   static fromJson(json: Record<string, any>) {
     const obj = new DiscoveryCatalog();

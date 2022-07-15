@@ -25,6 +25,7 @@ export const Filter = ({
   const filterInitialValue = {
     searchWith: SearchWith.Name,
     typeOfConsultation: listOfConsultationTypes[0],
+    cityCode: listOfCities.Bangalore,
     startTime: new Date(),
     endTime: new Date(),
   };
@@ -35,7 +36,7 @@ export const Filter = ({
     },
   });
   return (
-    <Paper elevation={0} sx={{ height: 200, padding: 5, paddingTop: 10 }}>
+    <Paper elevation={0} sx={{ padding: 5, paddingTop: 10 }}>
       <Stack spacing={2}>
         <AppSelect
           fullWidth
@@ -111,16 +112,16 @@ export const Filter = ({
               id="city"
               label="City"
               name="city"
-              error={formik.touched.city ? formik.errors.city : null}
-              value={formik.values.city}
+              error={formik.touched.cityCode ? formik.errors.cityCode : null}
+              value={formik.values.cityCode}
               onChange={(e) => {
                 const newValue = e.target.value;
-                formik.setFieldValue("city", newValue);
+                formik.setFieldValue("cityCode", newValue);
               }}
             >
-              {listOfCities.map((city) => (
-                <MenuItem key={city} value={city}>
-                  {capitalCase(city)}
+              {Object.entries(listOfCities).map(([key, value]) => (
+                <MenuItem key={key} value={value}>
+                  {capitalCase(key)}
                 </MenuItem>
               ))}
             </AppSelect>

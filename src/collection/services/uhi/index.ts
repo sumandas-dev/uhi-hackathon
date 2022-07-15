@@ -1,5 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { IDoctorFilter } from "../../../pages/uhi/appointment/interfaces/doctor-filter.interface";
+import {
+  euaEndpoint,
+  uhiProxyEndpoint,
+} from "../../../shared/constants/uhi-constants";
 
 interface SessionData {
   accessToken: string;
@@ -9,7 +13,7 @@ interface SessionData {
   tokenType: string;
 }
 export class UHI {
-  private baseUrl = "http://0.tcp.in.ngrok.io:12168/api/v1";
+  private baseUrl = uhiProxyEndpoint;
   private uhiClientId = "";
   private uhiSecret = "";
   private sessionData: SessionData;
@@ -60,15 +64,18 @@ export class UHI {
     // const session = await this.getSession();
     const data = JSON.stringify({
       context: {
-        domain: "uhi:consultation",
+        domain: "nic2004:85111",
         country: "IND",
-        city: filter.city,
+        // city: filter.cityCode,
+        city: `std:${filter.cityCode}`,
         action: "search",
         core_version: "0.7.1",
-        consumer_uri: "http://localhost:3001",
+        consumer_id: "suman/EUA",
+        consumer_uri: euaEndpoint,
         message_id: messageId,
         transaction_id: transactionId,
         ttl: ttl,
+        timestamp: new Date(),
       },
       message: {
         intent: {
@@ -83,10 +90,14 @@ export class UHI {
             },
             type: filter.typeOfConsultation,
             start: {
-              time: filter.startTime,
+              time: {
+                timestamp: filter.startTime,
+              },
             },
             end: {
-              time: filter.endTime,
+              time: {
+                timestamp: filter.endTime,
+              },
             },
           },
           provider: {

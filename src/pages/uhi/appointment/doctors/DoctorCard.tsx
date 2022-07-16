@@ -81,7 +81,10 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, transactionId }) => {
       <Box px={5} pb={4}>
         <UserInfo>
           <UserWrapper>
-            <Avatar src={doctor.imageUrl} alt="Doctor" />
+            <Avatar
+              src={doctor.imageUrl ?? "/assets/images/placeholder.jpg"}
+              alt="Doctor"
+            />
             {doctor.abhaId && (
               <UserStatus>
                 <CheckCircleIcon />

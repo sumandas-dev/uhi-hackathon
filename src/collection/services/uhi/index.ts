@@ -1,5 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { IDoctorFilter } from "../../../pages/uhi/appointment/interfaces/doctor-filter.interface";
+import { BookingInitRequestModel } from "../../../pages/uhi/model/booking-init-request-model";
+import { BookingInitResponseModel } from "../../../pages/uhi/model/booking-init-response-mode";
 import {
   euaEndpoint,
   uhiProxyEndpoint,
@@ -126,6 +128,37 @@ export class UHI {
         authorization: `Bearer token`,
       },
       data: data,
+    };
+
+    const response = await axios(config);
+    return response;
+  }
+
+  async init(data: BookingInitRequestModel) {
+    const config: AxiosRequestConfig = {
+      method: "POST",
+      baseURL: this.baseUrl,
+      url: "init",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer token`,
+      },
+      data: JSON.stringify(data.toJson()),
+    };
+
+    const response = await axios(config);
+    return response;
+  }
+  async confirm(data: BookingInitResponseModel) {
+    const config: AxiosRequestConfig = {
+      method: "POST",
+      baseURL: this.baseUrl,
+      url: "confirm",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer token`,
+      },
+      data: JSON.stringify(data.toJson()),
     };
 
     const response = await axios(config);

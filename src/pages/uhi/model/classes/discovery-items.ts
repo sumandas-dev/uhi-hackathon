@@ -2,7 +2,7 @@ import { DiscoveryDescriptor } from "./discovery-descriptor";
 import { DiscoveryPrice } from "./discovery-price";
 import { Quantity } from "./quantity";
 
-export class DiscoveryItems {
+export class DiscoveryItem {
   id: String;
   descriptor: DiscoveryDescriptor;
   categoryId: String;
@@ -11,7 +11,7 @@ export class DiscoveryItems {
   quantity: Quantity;
 
   static fromJson(json: Record<string, any>) {
-    const obj = new DiscoveryItems();
+    const obj = new DiscoveryItem();
     obj.id = json["id"];
     obj.descriptor =
       json["descriptor"] != null

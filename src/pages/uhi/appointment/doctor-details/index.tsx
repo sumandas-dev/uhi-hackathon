@@ -1,11 +1,11 @@
 import moment from "moment";
 import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import { UHI } from "../../../../collection/services/uhi";
 import { euaSocketEndpoint } from "../../../../shared/constants/uhi-constants";
-import { Fulfillment } from "../../model/classes/fulfillment";
+import { Fulfillment, Time } from "../../model/classes/fulfillment";
 import { DiscoveryResponseModel } from "../../model/discovery-response-model";
 import {
   IDoctorFilter,
@@ -17,6 +17,8 @@ import { Slots } from "./Slots";
 import { Button, Grid } from "@mui/material";
 import { DoctorData } from "./DoctorData";
 import { IDoctorProfile } from "../interfaces/doctor-profile.interface";
+import { AppointmentDetailsPagePassedData } from "../appointment-details";
+import { TimeSlotModel } from "../../model/time-slot-model";
 export interface DoctorDetailsPagePassedData {
   doctorAbhaId: string;
   doctorName: string;
@@ -29,15 +31,18 @@ export interface DoctorDetailsPagePassedData {
 
 export const DoctorDetails = () => {
   const socket = io(euaSocketEndpoint, { withCredentials: true });
+  const navigate = useNavigate();
   const { state } = useLocation();
   const [date, setDate] = useState<Date>(moment().startOf("day").toDate());
-  const [slots, setSlots] = useState<{ start: Date; end: Date }[]>([]);
+  const [slots, setSlots] = useState<TimeSlotModel[]>([]);
+  const [selectedSlot, setSelectedSlot] = useState<TimeSlotModel>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [discoveryResponses, setDiscoveryResponses] = useState<
     DiscoveryResponseModel[]
   >([]);
   const uhi = UHI.getInstance();
   const passedData = state as DoctorDetailsPagePassedData;
+  const consultationType = listOfConsultationTypes[0];
 
   useEffect(() => {
     postRequest();
@@ -45,6 +50,9 @@ export const DoctorDetails = () => {
 
   useEffect(() => {
     postRequest();
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   const postRequest = () => {
@@ -57,7 +65,7 @@ export const DoctorDetails = () => {
       cityCode: passedData.cityCode,
       startTime: date,
       endTime: moment(date).endOf("day").toDate(),
-      typeOfConsultation: listOfConsultationTypes[0],
+      typeOfConsultation: consultationType,
     };
     const messageId = nanoid(24);
     const ttl = 2;
@@ -92,10 +100,22 @@ export const DoctorDetails = () => {
 
   const generateSlots = (fulfillments: Fulfillment[]) => {
     const datePart = moment(date).format("YYYY-MM-DD");
-    const slots = fulfillments.map((fulfillment) => ({
-      start: moment(`${datePart}${fulfillment.start.time.timestamp}`).toDate(),
-      end: moment(`${datePart}${fulfillment.end.time.timestamp}`).toDate(),
-    }));
+    const slots = fulfillments.map((fulfillment) => {
+      const timeSlot = new TimeSlotModel();
+      timeSlot.start = new Time();
+      timeSlot.end = new Time();
+      timeSlot.start.time = {
+        timestamp: moment(`${datePart}${fulfillment.start.time.timestamp}`)
+          .toDate()
+          .toISOString(),
+      };
+      timeSlot.end.time = {
+        timestamp: moment(`${datePart}${fulfillment.end.time.timestamp}`)
+          .toDate()
+          .toISOString(),
+      };
+      return timeSlot;
+    });
     console.log(slots);
     return slots;
   };
@@ -116,8 +136,28 @@ export const DoctorDetails = () => {
           <DoctorData doctorProfile={passedData.doctorProfile} />
         </Grid>
         <Grid item sm={12} md={6}>
-          <Slots slots={slots} />
-          <Button variant="contained">Book Appointment</Button>
+          <Slots
+            slots={slots}
+            onSelect={(slot) => {
+              setSelectedSlot(slot);
+            }}
+          />
+          <Button
+            variant="contained"
+            onClick={() => {
+              navigate("/uhi/appointment-details", {
+                state: {
+                  consultationType: consultationType,
+                  doctorProfile: passedData.doctorProfile,
+                  providerUrl: passedData.doctorProviderUri,
+                  transactionId: passedData.transactionId,
+                  timeSlot: selectedSlot,
+                } as AppointmentDetailsPagePassedData,
+              });
+            }}
+          >
+            Book Appointment
+          </Button>
         </Grid>
       </Grid>
     </>

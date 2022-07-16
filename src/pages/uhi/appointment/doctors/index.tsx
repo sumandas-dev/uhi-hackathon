@@ -26,6 +26,7 @@ const Doctors = () => {
   const [transactionId, setTransactionId] = useState<string>(null);
 
   const onApply = (filter: IDoctorFilter) => {
+    let newRequest = true;
     setFilterValues(filter);
     setIsLoading(true);
     setFirstVisit(false);
@@ -45,14 +46,21 @@ const Doctors = () => {
 
     socket.on(_messageId, (data) => {
       console.log(data);
-      setDiscoveryResponses([
-        ...discoveryResponses,
-        DiscoveryResponseModel.fromJson(data),
-      ]);
-      setDoctors([
-        ...doctors,
-        ...getDoctors(DiscoveryResponseModel.fromJson(data), filter),
-      ]);
+      if (newRequest) {
+        setDiscoveryResponses([DiscoveryResponseModel.fromJson(data)]);
+        setDoctors([
+          ...getDoctors(DiscoveryResponseModel.fromJson(data), filter),
+        ]);
+      } else {
+        setDiscoveryResponses([
+          ...discoveryResponses,
+          DiscoveryResponseModel.fromJson(data),
+        ]);
+        setDoctors([
+          ...doctors,
+          ...getDoctors(DiscoveryResponseModel.fromJson(data), filter),
+        ]);
+      }
     });
     setTimeout(() => {
       console.log("ttl hit");
@@ -77,6 +85,7 @@ const Doctors = () => {
         languages: fulfillment.agent.tags.languageSpokenTag,
         specialty: fulfillment.agent.tags.specialtyTag,
         cityCode: filter.cityCode,
+        fulfillment: fulfillment,
         provider: {
           price: fulfillment.agent.tags.firstConsultation,
           url: discoveryResponse.context.providerUrl,

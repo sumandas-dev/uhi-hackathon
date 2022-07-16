@@ -1,3 +1,5 @@
+import { Fulfillment } from "../../model/classes/fulfillment";
+
 export interface IDoctorProfile {
   name: string;
   degree: string;
@@ -10,6 +12,7 @@ export interface IDoctorProfile {
   numberOfTeleconsults?: number;
   onTimePercentage?: number;
   cityCode: string;
+  fulfillment: Fulfillment;
   provider: {
     price: string;
     url: string;

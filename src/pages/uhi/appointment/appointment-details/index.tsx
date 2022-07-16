@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Paper, Stack } from "@mui/material";
+import { Grid, Paper, Stack } from "@mui/material";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,7 +10,6 @@ import {
   euaEndpoint,
   euaSocketEndpoint,
 } from "../../../../shared/constants/uhi-constants";
-import { DoctorDetails } from "../../components/doctor-details/DoctorDetails";
 import { BookingConfirmResponseModel } from "../../model/booking-confirm-response-model";
 import { BookingInitRequestModel } from "../../model/booking-init-request-model";
 import { BookingInitResponseModel } from "../../model/booking-init-response-mode";

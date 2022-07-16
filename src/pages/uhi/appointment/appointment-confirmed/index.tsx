@@ -1,10 +1,7 @@
-import { LoadingButton } from "@mui/lab";
 import { Box, Button, Grid, Paper, Stack, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BookingConfirmResponseModel } from "../../model/booking-confirm-response-model";
-import { Quotation } from "../appointment-details/Quotation";
 import { DoctorData } from "../doctor-details/DoctorData";
-import { PageLoading } from "../doctors";
 import { IDoctorProfile } from "../interfaces/doctor-profile.interface";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import moment from "moment";

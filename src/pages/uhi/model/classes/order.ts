@@ -2,7 +2,7 @@ import { Billing } from "./billing";
 import { Customer } from "./customer";
 import { DiscoveryItem } from "./discovery-items";
 import { Fulfillment } from "./fulfillment";
-import { Breakup, Payment, Quote } from "./payment";
+import { Payment, Quote } from "./payment";
 
 export class Order {
   item: DiscoveryItem;

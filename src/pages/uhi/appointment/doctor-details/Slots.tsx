@@ -1,7 +1,6 @@
 import { Button, Grid } from "@mui/material";
-import { Box } from "@mui/system";
 import moment from "moment";
-import React, { useState } from "react";
+import { useState } from "react";
 import { TimeSlotModel } from "../../model/time-slot-model";
 
 export const Slots = ({

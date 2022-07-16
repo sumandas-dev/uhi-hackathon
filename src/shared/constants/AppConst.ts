@@ -18,4 +18,4 @@ export const defaultUser: AuthUser = {
   role: "user",
   photoURL: "/assets/images/avatar/A11.jpg",
 };
-export const initialUrl = "uhi/doctors"; // this url will open after login
+export const initialUrl = "/uhi/doctors"; // this url will open after login

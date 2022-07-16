@@ -20,6 +20,14 @@ export const AppointmentConfirmed = () => {
     passedData.confirmResponseModel.message.order.fulfillment.start.time
       .timestamp
   ).format("MMMM Do, YYYY");
+
+  const time = `${moment(
+    passedData.confirmResponseModel.message.order.fulfillment.start.time
+      .timestamp
+  ).format("hh:mm a")} - ${moment(
+    passedData.confirmResponseModel.message.order.fulfillment.end.time.timestamp
+  ).format("hh:mm a")}`;
+
   return (
     <Paper elevation={0} sx={{ padding: 8 }}>
       <Grid container spacing={{ xs: 10, sm: 0 }}>
@@ -43,6 +51,7 @@ export const AppointmentConfirmed = () => {
               <Stack spacing={1}>
                 <Typography variant="h4">Appointment Confirm</Typography>
                 <Typography variant="h2">{appointmentDate}</Typography>
+                <Typography variant="h3">{time}</Typography>
               </Stack>
             </Box>
             <Typography variant="caption">Transaction Id</Typography>

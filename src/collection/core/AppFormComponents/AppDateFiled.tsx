@@ -6,7 +6,7 @@ import { DatePickerProps } from "@mui/x-date-pickers/DatePicker/DatePicker";
 import { TextFieldProps } from "@mui/material/TextField/TextField";
 
 const AppDateFiled = (
-  props: TextFieldProps & DatePickerProps & FieldHookConfig<string>
+  props: TextFieldProps & DatePickerProps<any, any> & FieldHookConfig<string>
 ) => {
   return (
     <Field

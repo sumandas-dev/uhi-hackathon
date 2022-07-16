@@ -16,7 +16,7 @@ export const Slots = ({
       <Grid container spacing={3}>
         {slots.map((slot, index) => {
           return (
-            <Grid item xs={4}>
+            <Grid item xs={slots.length > 2 ? 4 : 6}>
               <Button
                 variant={index === selectedSlotIndex ? "contained" : "outlined"}
                 onClick={() => {

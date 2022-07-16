@@ -49,7 +49,7 @@ export const AppointmentConfirmed = () => {
                 sx={{ height: 200, width: 200 }}
               />
               <Stack spacing={1}>
-                <Typography variant="h4">Appointment Confirm</Typography>
+                <Typography variant="h4">Appointment Confirmed</Typography>
                 <Typography variant="h2">{appointmentDate}</Typography>
                 <Typography variant="h3">{time}</Typography>
               </Stack>

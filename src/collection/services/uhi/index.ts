@@ -129,7 +129,6 @@ export class UHI {
       },
       data: data,
     };
-
     const response = await axios(config);
     return response;
   }

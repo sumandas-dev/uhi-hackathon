@@ -113,7 +113,7 @@ const Doctors = () => {
             {firstVisit ? (
               <EmptyMessage message="Search Doctors" />
             ) : isLoading ? (
-              <PageLoading />
+              <PageLoading minHeight={650} />
             ) : doctors.length === 0 ? (
               <EmptyMessage message="No Doctor Found" />
             ) : (
@@ -126,14 +126,14 @@ const Doctors = () => {
   );
 };
 
-const PageLoading = () => {
+export const PageLoading = ({ minHeight }: { minHeight: number }) => {
   return (
     <Box
       sx={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: 650,
+        minHeight: minHeight,
       }}
     >
       <CircularProgress />

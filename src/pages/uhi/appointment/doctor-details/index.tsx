@@ -14,11 +14,12 @@ import {
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import TextField from "@mui/material/TextField";
 import { Slots } from "./Slots";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Paper, Stack } from "@mui/material";
 import { DoctorData } from "./DoctorData";
 import { IDoctorProfile } from "../interfaces/doctor-profile.interface";
 import { AppointmentDetailsPagePassedData } from "../appointment-details";
 import { TimeSlotModel } from "../../model/time-slot-model";
+import { PageLoading } from "../doctors";
 export interface DoctorDetailsPagePassedData {
   doctorAbhaId: string;
   doctorName: string;
@@ -121,45 +122,55 @@ export const DoctorDetails = () => {
   };
   return (
     <>
-      <DesktopDatePicker
-        label="For desktop"
-        value={date}
-        minDate={new Date()}
-        onChange={(newValue) => {
-          setDate(newValue);
-        }}
-        renderInput={(params) => <TextField {...params} />}
-      />
+      <Paper elevation={0} sx={{ padding: 8 }}>
+        <Grid container spacing={{ xs: 10, sm: 0 }}>
+          <Grid item sm={12} md={7}>
+            <DoctorData doctorProfile={passedData.doctorProfile} />
+          </Grid>
+          <Grid item sm={12} md={5}>
+            <Stack spacing={5}>
+              {loading ? (
+                <PageLoading minHeight={250} />
+              ) : (
+                <Slots
+                  slots={slots}
+                  onSelect={(slot) => {
+                    setSelectedSlot(slot);
+                  }}
+                />
+              )}
 
-      <Grid container>
-        <Grid item sm={12} md={6}>
-          <DoctorData doctorProfile={passedData.doctorProfile} />
+              <DesktopDatePicker
+                label="Appointment Date"
+                value={date}
+                minDate={new Date()}
+                onChange={(newValue) => {
+                  setDate(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+              <Button
+                variant="contained"
+                disabled={selectedSlot == null}
+                onClick={() => {
+                  navigate("/uhi/appointment-details", {
+                    replace: true,
+                    state: {
+                      consultationType: consultationType,
+                      doctorProfile: passedData.doctorProfile,
+                      providerUrl: passedData.doctorProviderUri,
+                      transactionId: passedData.transactionId,
+                      timeSlot: selectedSlot,
+                    } as AppointmentDetailsPagePassedData,
+                  });
+                }}
+              >
+                Book Appointment
+              </Button>
+            </Stack>
+          </Grid>
         </Grid>
-        <Grid item sm={12} md={6}>
-          <Slots
-            slots={slots}
-            onSelect={(slot) => {
-              setSelectedSlot(slot);
-            }}
-          />
-          <Button
-            variant="contained"
-            onClick={() => {
-              navigate("/uhi/appointment-details", {
-                state: {
-                  consultationType: consultationType,
-                  doctorProfile: passedData.doctorProfile,
-                  providerUrl: passedData.doctorProviderUri,
-                  transactionId: passedData.transactionId,
-                  timeSlot: selectedSlot,
-                } as AppointmentDetailsPagePassedData,
-              });
-            }}
-          >
-            Book Appointment
-          </Button>
-        </Grid>
-      </Grid>
+      </Paper>
     </>
   );
 };

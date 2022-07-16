@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button, Grid, Paper, Stack } from "@mui/material";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ import {
   euaEndpoint,
   euaSocketEndpoint,
 } from "../../../../shared/constants/uhi-constants";
+import { DoctorDetails } from "../../components/doctor-details/DoctorDetails";
 import { BookingConfirmResponseModel } from "../../model/booking-confirm-response-model";
 import { BookingInitRequestModel } from "../../model/booking-init-request-model";
 import { BookingInitResponseModel } from "../../model/booking-init-response-mode";
@@ -26,7 +27,12 @@ import { InitMessage } from "../../model/classes/init-message";
 import { Order } from "../../model/classes/order";
 import { Params } from "../../model/classes/params";
 import { TimeSlotModel } from "../../model/time-slot-model";
+import { DoctorData } from "../doctor-details/DoctorData";
+import { PageLoading } from "../doctors";
 import { IDoctorProfile } from "../interfaces/doctor-profile.interface";
+import { Quotation } from "./Quotation";
+import { LoadingButton } from "@mui/lab";
+import { AppointmentConfirmPassedData } from "../appointment-confirmed";
 
 export interface AppointmentDetailsPagePassedData {
   doctorProfile: IDoctorProfile;
@@ -204,7 +210,13 @@ export const AppointmentDetails = () => {
       setBookingConfirmResponseModel(_bookingConfirmResponseModel);
       console.log(_bookingConfirmResponseModel);
       setConfirming(false);
-      navigate("/uhi/appointment-confirmed");
+      navigate("/uhi/appointment-confirmed", {
+        replace: true,
+        state: {
+          doctorProfile: passedData.doctorProfile,
+          confirmResponseModel: _bookingConfirmResponseModel,
+        } as AppointmentConfirmPassedData,
+      });
     });
 
     setTimeout(() => {
@@ -214,17 +226,30 @@ export const AppointmentDetails = () => {
   };
   return (
     <>
-      <h5>quote: {finalQuote}</h5>
-      {breakups.map((breakup) => {
-        return (
-          <p>
-            {breakup.title}: {breakup.value}
-          </p>
-        );
-      })}
-      <Button variant="contained" onClick={postConfirmRequest}>
-        Confirm
-      </Button>
+      <Paper elevation={0} sx={{ padding: 8 }}>
+        <Grid container spacing={{ xs: 10, sm: 0 }}>
+          <Grid item xs={12} md={7}>
+            <DoctorData doctorProfile={passedData.doctorProfile} />
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <Stack spacing={5}>
+              {loading ? (
+                <PageLoading minHeight={250} />
+              ) : (
+                <Quotation quote={finalQuote} breakups={breakups} />
+              )}
+              <LoadingButton
+                loading={confirming}
+                disabled={loading}
+                variant="contained"
+                onClick={postConfirmRequest}
+              >
+                Confirm
+              </LoadingButton>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Paper>
     </>
   );
 };

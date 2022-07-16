@@ -9,6 +9,7 @@ export interface IDoctorProfile {
   specialty: string;
   numberOfTeleconsults?: number;
   onTimePercentage?: number;
+  cityCode: string;
   provider: {
     price: string;
     url: string;

@@ -144,7 +144,7 @@ export const Filter = ({
               id="doctorHpid"
               label="Doctor HPID"
               error={
-                formik.touched.doctorHpid ? formik.errors.doctorHpid : null
+                formik.touched.doctorAbhaId ? formik.errors.doctorAbhaId : null
               }
               {...formik.getFieldProps("doctorHpid")}
             />

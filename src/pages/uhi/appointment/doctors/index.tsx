@@ -25,8 +25,8 @@ const Doctors = () => {
   const [doctors, setDoctors] = useState<IDoctorProfile[]>([]);
   const [transactionId, setTransactionId] = useState<string>(null);
 
-  const onApply = (data: IDoctorFilter) => {
-    setFilterValues(data);
+  const onApply = (filter: IDoctorFilter) => {
+    setFilterValues(filter);
     setIsLoading(true);
     setFirstVisit(false);
     const _messageId = nanoid(24);
@@ -34,7 +34,12 @@ const Doctors = () => {
     setTransactionId(_transactionId);
     const ttl = "3";
 
-    uhi.searchDoctor(data, _messageId, _transactionId, ttl);
+    uhi.searchDoctor({
+      filter: filter,
+      messageId: _messageId,
+      transactionId: _transactionId,
+      ttl: ttl,
+    });
 
     console.log(_messageId);
 
@@ -46,7 +51,7 @@ const Doctors = () => {
       ]);
       setDoctors([
         ...doctors,
-        ...getDoctors(DiscoveryResponseModel.fromJson(data)),
+        ...getDoctors(DiscoveryResponseModel.fromJson(data), filter),
       ]);
     });
     setTimeout(() => {
@@ -57,7 +62,8 @@ const Doctors = () => {
   };
 
   const getDoctors = (
-    discoveryResponse: DiscoveryResponseModel
+    discoveryResponse: DiscoveryResponseModel,
+    filter: IDoctorFilter
   ): IDoctorProfile[] => {
     const fulfillMents = discoveryResponse.message.catalog.fulfillments;
     const doctors = fulfillMents.map((fulfillment) => {
@@ -70,6 +76,7 @@ const Doctors = () => {
         degree: fulfillment.agent.tags.education,
         languages: fulfillment.agent.tags.languageSpokenTag,
         specialty: fulfillment.agent.tags.specialtyTag,
+        cityCode: filter.cityCode,
         provider: {
           price: fulfillment.agent.tags.firstConsultation,
           url: discoveryResponse.context.providerUrl,
@@ -101,7 +108,7 @@ const Doctors = () => {
             ) : doctors.length === 0 ? (
               <EmptyMessage message="No Doctor Found" />
             ) : (
-              <DoctorGrid doctors={doctors} />
+              <DoctorGrid doctors={doctors} transactionId={transactionId} />
             )}
           </Paper>
         </Grid>

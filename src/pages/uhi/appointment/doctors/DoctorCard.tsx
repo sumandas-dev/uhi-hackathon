@@ -10,6 +10,9 @@ import AppCard from "../../../../collection/core/AppCard";
 import { Fonts } from "../../../../shared/constants/AppEnums";
 import { IDoctorProfile } from "../interfaces/doctor-profile.interface";
 import { Chip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { DoctorDetailsPagePassedData } from "../doctor-details";
+import { listOfConsultationTypes } from "../interfaces/doctor-filter.interface";
 
 const UserInfo = styled("div")(({ theme }) => ({
   display: "flex",
@@ -50,34 +53,14 @@ const UserStatus = styled("div")(({ theme }) => ({
     fontSize: 14,
   },
 }));
-const UserAvatar = styled(Avatar)(({ theme }) => ({
-  border: `2px solid ${theme.palette.primary.contrastText}`,
-  marginRight: -4,
-  width: 28,
-  height: 28,
-}));
-const AvatarCount = styled("div")(({ theme }) => ({
-  border: `2px solid ${theme.palette.primary.contrastText}`,
-  width: 28,
-  height: 28,
-  backgroundColor: theme.palette.success.main,
-  color: theme.palette.common.white,
-  borderRadius: "50%",
-  marginRight: -4,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  position: "relative",
-  fontSize: 12,
-  fontWeight: Fonts.BOLD,
-}));
 
 interface DoctorCardProps {
   doctor: IDoctorProfile;
+  transactionId: string;
 }
 
-const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
+const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, transactionId }) => {
+  const navigate = useNavigate();
   return (
     <AppCard
       sxStyle={{ mb: 8 }}
@@ -160,6 +143,19 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
                 variant="outlined"
                 sx={{
                   textTransform: "capitalize",
+                }}
+                onClick={() => {
+                  navigate("/uhi/doctor-details", {
+                    state: {
+                      doctorAbhaId: doctor.abhaId,
+                      consultationType: listOfConsultationTypes[0],
+                      doctorName: doctor.name,
+                      doctorProviderUri: doctor.provider.url,
+                      cityCode: doctor.cityCode,
+                      transactionId: transactionId,
+                      doctorProfile: doctor,
+                    } as DoctorDetailsPagePassedData,
+                  });
                 }}
               >
                 {`₹${doctor.provider.price}`}&nbsp;&nbsp;&nbsp;

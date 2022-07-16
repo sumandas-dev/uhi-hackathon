@@ -55,23 +55,30 @@ export class UHI {
     return sessionData;
   }
 
-  async searchDoctor(
-    filter: IDoctorFilter,
-    messageId: string,
-    transactionId: string,
-    ttl: string
-  ) {
+  async searchDoctor({
+    filter,
+    messageId,
+    transactionId,
+    ttl,
+    providerUri,
+  }: {
+    filter: IDoctorFilter;
+    messageId: string;
+    transactionId: string;
+    ttl: string;
+    providerUri?: string;
+  }) {
     // const session = await this.getSession();
     const data = JSON.stringify({
       context: {
         domain: "nic2004:85111",
         country: "IND",
-        // city: filter.cityCode,
         city: `std:${filter.cityCode}`,
         action: "search",
         core_version: "0.7.1",
         consumer_id: "suman/EUA",
         consumer_uri: euaEndpoint,
+        provider_uri: providerUri,
         message_id: messageId,
         transaction_id: transactionId,
         ttl: ttl,
@@ -82,6 +89,7 @@ export class UHI {
           fulfillment: {
             agent: {
               name: filter.doctorName,
+              id: filter.doctorAbhaId,
               tags: {
                 "@abdm/gov/in/med_speciality": filter.specialty,
                 "@abdm/gov/in/system_of_med": filter.systemOfMedicine,

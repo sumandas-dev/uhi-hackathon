@@ -55,9 +55,9 @@ export const listOfLanguages = [
   "Dogri",
 ];
 export interface IDoctorFilter {
-  searchWith: SearchWith;
+  searchWith?: SearchWith;
   doctorName?: string;
-  doctorHpid?: string;
+  doctorAbhaId?: string;
   specialty?: string;
   systemOfMedicine?: SystemOfMedicine;
   cityCode?: string;

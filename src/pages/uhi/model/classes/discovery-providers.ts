@@ -1,16 +1,16 @@
 import { DiscoveryCategories } from "./discovery-categories";
 import { DiscoveryDescriptor } from "./discovery-descriptor";
-import { DiscoveryItems } from "./discovery-items";
+import { DiscoveryItem } from "./discovery-items";
 import { DiscoveryLocations } from "./discovery-location";
 import { Fulfillment } from "./fulfillment";
 
 export class DiscoveryProviders {
   id: string;
   descriptor: DiscoveryDescriptor;
-  locations: DiscoveryLocations[];
-  categories: DiscoveryCategories[];
-  items: DiscoveryItems[];
-  fulfillments: Fulfillment[];
+  locations: DiscoveryLocations[] = [];
+  categories: DiscoveryCategories[] = [];
+  items: DiscoveryItem[] = [];
+  fulfillments: Fulfillment[] = [];
 
   static fromJson(json: Record<string, any>) {
     const obj = new DiscoveryProviders();
@@ -31,7 +31,7 @@ export class DiscoveryProviders {
     }
     if (json["items"] != null) {
       json["items"].forEach((v) => {
-        obj.items.push(DiscoveryItems.fromJson(v));
+        obj.items.push(DiscoveryItem.fromJson(v));
       });
     }
     if (json["fulfillments"] != null) {

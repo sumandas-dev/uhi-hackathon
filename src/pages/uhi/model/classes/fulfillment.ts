@@ -29,16 +29,16 @@ export class Fulfillment {
     data["id"] = this.id;
     data["type"] = this.type;
     if (this.agent != null) {
-      data["agent"] = this.agent!.toJson();
+      data["agent"] = this.agent.toJson();
     }
     if (this.start != null) {
-      data["start"] = this.start!.toJson();
+      data["start"] = this.start.toJson();
     }
     if (this.end != null) {
-      data["end"] = this.end!.toJson();
+      data["end"] = this.end.toJson();
     }
     if (this.initTimeSlotTags != null) {
-      data["tags"] = this.initTimeSlotTags!.toJson();
+      data["tags"] = this.initTimeSlotTags.toJson();
     }
     if (this.tags != null) {
       data["tags"] = this.tags!.toJson();
@@ -53,7 +53,7 @@ export class Time {
   };
   static fromJson(json: Record<string, any>) {
     const obj = new Time();
-    obj.time.timestamp = json["time"]["timestamp"];
+    obj.time = json["time"];
     return obj;
   }
   toJson() {

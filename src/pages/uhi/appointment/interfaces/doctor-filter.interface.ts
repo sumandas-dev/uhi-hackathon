@@ -16,7 +16,13 @@ export const listOfSpecialties = [
 
 export const listOfSystemOfMedicines = ["Allopathy", "Homeopathy"];
 
-export const listOfCities = ["Pune", "Mumbai", "Delhi", "Kolkata", "Bangalore"];
+export const listOfCities = {
+  Pune: "020",
+  Mumbai: "022",
+  Delhi: "011",
+  Kolkata: "033",
+  Bangalore: "080",
+};
 
 export const listOfConsultationTypes = [
   // "Teleconsultation",
@@ -49,12 +55,12 @@ export const listOfLanguages = [
   "Dogri",
 ];
 export interface IDoctorFilter {
-  searchWith: SearchWith;
+  searchWith?: SearchWith;
   doctorName?: string;
-  doctorHpid?: string;
+  doctorAbhaId?: string;
   specialty?: string;
   systemOfMedicine?: SystemOfMedicine;
-  city?: string;
+  cityCode?: string;
   providerName?: string;
   typeOfConsultation: string;
   language?: string;

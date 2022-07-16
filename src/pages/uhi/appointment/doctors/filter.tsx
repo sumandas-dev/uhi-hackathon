@@ -1,22 +1,23 @@
 import { Button, MenuItem, Paper, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { AppInput } from "../components/AppInput";
-import { AppSelect } from "../components/AppSelect";
-import {
-  IDoctorFilter,
-  listOfCities,
-  listOfConsultationTypes,
-  listOfLanguages,
-  listOfSpecialties,
-  listOfSystemOfMedicines,
-  SearchWith,
-} from "./interfaces/doctor-filter.interface";
+
 import { capitalCase } from "change-case";
 // import "react-date-range/dist/styles.css";
 // import "react-date-range/dist/theme/default.css";
 // import { DateRangePicker } from "react-date-range";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { Box } from "@mui/system";
+import { AppInput } from "../../components/AppInput";
+import { AppSelect } from "../../components/AppSelect";
+import {
+  IDoctorFilter,
+  SearchWith,
+  listOfConsultationTypes,
+  listOfCities,
+  listOfSpecialties,
+  listOfSystemOfMedicines,
+  listOfLanguages,
+} from "../interfaces/doctor-filter.interface";
 export const Filter = ({
   onApply,
 }: {
@@ -25,6 +26,7 @@ export const Filter = ({
   const filterInitialValue = {
     searchWith: SearchWith.Name,
     typeOfConsultation: listOfConsultationTypes[0],
+    cityCode: listOfCities.Bangalore,
     startTime: new Date(),
     endTime: new Date(),
   };
@@ -35,7 +37,7 @@ export const Filter = ({
     },
   });
   return (
-    <Paper elevation={0} sx={{ height: 200, padding: 5, paddingTop: 10 }}>
+    <Paper elevation={0} sx={{ padding: 5, paddingTop: 10 }}>
       <Stack spacing={2}>
         <AppSelect
           fullWidth
@@ -111,16 +113,16 @@ export const Filter = ({
               id="city"
               label="City"
               name="city"
-              error={formik.touched.city ? formik.errors.city : null}
-              value={formik.values.city}
+              error={formik.touched.cityCode ? formik.errors.cityCode : null}
+              value={formik.values.cityCode}
               onChange={(e) => {
                 const newValue = e.target.value;
-                formik.setFieldValue("city", newValue);
+                formik.setFieldValue("cityCode", newValue);
               }}
             >
-              {listOfCities.map((city) => (
-                <MenuItem key={city} value={city}>
-                  {capitalCase(city)}
+              {Object.entries(listOfCities).map(([key, value]) => (
+                <MenuItem key={key} value={value}>
+                  {capitalCase(key)}
                 </MenuItem>
               ))}
             </AppSelect>
@@ -142,7 +144,7 @@ export const Filter = ({
               id="doctorHpid"
               label="Doctor HPID"
               error={
-                formik.touched.doctorHpid ? formik.errors.doctorHpid : null
+                formik.touched.doctorAbhaId ? formik.errors.doctorAbhaId : null
               }
               {...formik.getFieldProps("doctorHpid")}
             />

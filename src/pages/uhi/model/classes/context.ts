@@ -1,4 +1,4 @@
-export class DiscoveryContext {
+export class Context {
   domain: string;
   country: string;
   city: string;
@@ -11,9 +11,10 @@ export class DiscoveryContext {
   deviceId: string;
   transactionId: string;
   providerUrl: string;
+  ttl: string;
 
-  static fromJson(data: Record<string, any>): DiscoveryContext {
-    const obj = new DiscoveryContext();
+  static fromJson(data: Record<string, any>): Context {
+    const obj = new Context();
     obj.domain = data["domain"];
     obj.country = data["country"];
     obj.city = data["city"];
@@ -26,6 +27,7 @@ export class DiscoveryContext {
     obj.deviceId = data["device_id"];
     obj.transactionId = data["transaction_id"];
     obj.providerUrl = data["provider_uri"];
+    obj.ttl = data["ttl"];
 
     return obj;
   }
@@ -41,6 +43,7 @@ export class DiscoveryContext {
     data["consumer_uri"] = this.consumerUri;
     data["message_id"] = this.messageId;
     data["timestamp"] = this.timestamp;
+    data["ttl"] = this.ttl;
     if (this.deviceId != null) {
       data["device_id"] = this.deviceId;
     }

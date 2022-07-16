@@ -1,0 +1,163 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: auto;
+}
+.section-div {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100vh;
+}
+.doc-image-box {
+  height: 35rem;
+  width: 25rem;
+  background-color: rgb(254, 254, 254);
+  padding-top: 20px;
+}
+.doc-img {
+  border-radius: 5px;
+  height: 100%;
+  max-width: 100%;
+}
+.main-div {
+  height: 35rem;
+  width: 25rem;
+  background-color: rgb(254, 254, 254);
+  padding-top: 20px;
+}
+.doc-info {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+.info {
+  padding-left: 2%;
+}
+.name {
+  font-size: 1.5rem;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  padding: 10px;
+  border: 1px solid rgb(240, 240, 240);
+  border-radius: 15px;
+  transition: border 1s;
+}
+.name:hover {
+  border: 1px solid rgb(85, 85, 85);
+}
+.degree {
+  font-size: 1.3rem;
+  margin: 0;
+  padding-left: 10px;
+}
+.occupation {
+  font-size: 0.7rem;
+  margin: 0;
+  padding-left: 10px;
+  color: rgb(91, 91, 91);
+}
+.email {
+  font-size: 1.1rem;
+  padding-left: 10px;
+}
+.language {
+  padding-left: 10px;
+  color: rgb(108, 108, 108);
+  margin: 0;
+}
+.exp {
+  color: rgb(99, 99, 99);
+  padding-left: 10px;
+  margin: 0;
+}
+.logo {
+  height: 20rem;
+  width: 100%;
+  border-radius: 5%;
+  background-color: aqua;
+}
+.teleconsult {
+  display: flex;
+}
+.teleconsult > p {
+  color: rgb(99, 99, 99);
+}
+.tbox-1 {
+  margin-left: 15px;
+}
+.tbox-2 {
+  margin-left: 30%;
+}
+.pricing {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.pricing-box {
+  margin-left: 15px;
+  height: 40px;
+  width: 80px;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: 15px;
+}
+.pricing-box > h4 {
+  margin: auto;
+  height: 100%;
+  padding: 10px;
+}
+.image-box {
+  height: 40px;
+  width: auto;
+  margin-left: 37%;
+}
+.image {
+  height: 100%;
+  width: auto;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: 15px;
+  padding: 0 5px;
+}
+.date {
+  height: 30px;
+  width: auto;
+  margin-bottom: 30px;
+  padding-left: 15px;
+}
+.date > input {
+  height: 100%;
+  width: auto;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(98, 98, 255);
+  color-scheme: dark;
+  padding: 5px;
+}
+.grid {
+  height: 8rem;
+  width: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+}
+.time-schedule {
+  height: 25px;
+  border: 1px solid blueviolet;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 8px;
+  width: 100px;
+}
+.appointment {
+  border: none;
+  border-radius: 5px;
+  background-color: #6262ff;
+  color: white;
+  height: 40px;
+  width: 100%;
+  transition: all 1s;
+}
+.appointment:hover {
+  background-color: #4d4dc2;
+}

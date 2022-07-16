@@ -1,5 +1,11 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { IDoctorFilter } from "../../../pages/uhi/appointment/interfaces/doctor-filter.interface";
+import { BookingInitRequestModel } from "../../../pages/uhi/model/booking-init-request-model";
+import { BookingInitResponseModel } from "../../../pages/uhi/model/booking-init-response-mode";
+import {
+  euaEndpoint,
+  uhiProxyEndpoint,
+} from "../../../shared/constants/uhi-constants";
 
 interface SessionData {
   accessToken: string;
@@ -9,7 +15,7 @@ interface SessionData {
   tokenType: string;
 }
 export class UHI {
-  private baseUrl = "http://0.tcp.in.ngrok.io:12168/api/v1";
+  private baseUrl = uhiProxyEndpoint;
   private uhiClientId = "";
   private uhiSecret = "";
   private sessionData: SessionData;
@@ -51,30 +57,41 @@ export class UHI {
     return sessionData;
   }
 
-  async searchDoctor(
-    filter: IDoctorFilter,
-    messageId: string,
-    transactionId: string,
-    ttl: string
-  ) {
+  async searchDoctor({
+    filter,
+    messageId,
+    transactionId,
+    ttl,
+    providerUri,
+  }: {
+    filter: IDoctorFilter;
+    messageId: string;
+    transactionId: string;
+    ttl: string;
+    providerUri?: string;
+  }) {
     // const session = await this.getSession();
     const data = JSON.stringify({
       context: {
-        domain: "uhi:consultation",
+        domain: "nic2004:85111",
         country: "IND",
-        city: filter.city,
+        city: `std:${filter.cityCode}`,
         action: "search",
         core_version: "0.7.1",
-        consumer_uri: "http://localhost:3001",
+        consumer_id: "suman/EUA",
+        consumer_uri: euaEndpoint,
+        provider_uri: providerUri,
         message_id: messageId,
         transaction_id: transactionId,
         ttl: ttl,
+        timestamp: new Date(),
       },
       message: {
         intent: {
           fulfillment: {
             agent: {
               name: filter.doctorName,
+              id: filter.doctorAbhaId,
               tags: {
                 "@abdm/gov/in/med_speciality": filter.specialty,
                 "@abdm/gov/in/system_of_med": filter.systemOfMedicine,
@@ -83,10 +100,14 @@ export class UHI {
             },
             type: filter.typeOfConsultation,
             start: {
-              time: filter.startTime,
+              time: {
+                timestamp: filter.startTime,
+              },
             },
             end: {
-              time: filter.endTime,
+              time: {
+                timestamp: filter.endTime,
+              },
             },
           },
           provider: {
@@ -107,6 +128,37 @@ export class UHI {
         authorization: `Bearer token`,
       },
       data: data,
+    };
+
+    const response = await axios(config);
+    return response;
+  }
+
+  async init(data: BookingInitRequestModel) {
+    const config: AxiosRequestConfig = {
+      method: "POST",
+      baseURL: this.baseUrl,
+      url: "init",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer token`,
+      },
+      data: JSON.stringify(data.toJson()),
+    };
+
+    const response = await axios(config);
+    return response;
+  }
+  async confirm(data: BookingInitResponseModel) {
+    const config: AxiosRequestConfig = {
+      method: "POST",
+      baseURL: this.baseUrl,
+      url: "confirm",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer token`,
+      },
+      data: JSON.stringify(data.toJson()),
     };
 
     const response = await axios(config);

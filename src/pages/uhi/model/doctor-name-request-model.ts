@@ -1,21 +1,21 @@
 import { Context } from "./classes/context";
-import { DiscoveryMessage } from "./classes/discovery-message";
+import { DoctorNameMessage } from "./classes/doctor-name-message";
 
-export class DiscoveryResponseModel {
+export class DoctorNameRequestModel {
   context: Context;
-  message: DiscoveryMessage;
+  message: DoctorNameMessage;
 
   static fromJson(json: Record<string, any>) {
-    const obj = new DiscoveryResponseModel();
+    const obj = new DoctorNameRequestModel();
     obj.context =
       json["context"] != null ? Context.fromJson(json["context"]) : null;
     obj.message =
       json["message"] != null
-        ? DiscoveryMessage.fromJson(json["message"])
+        ? DoctorNameMessage.fromJson(json["message"])
         : null;
-
     return obj;
   }
+
   toJson() {
     const data: Record<string, any> = {};
     if (this.context != null) {

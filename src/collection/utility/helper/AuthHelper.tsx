@@ -23,7 +23,7 @@ export const getUserFromFirebase = (user: any) => {
       photoURL: user.photoURL ? user.photoURL : "/assets/images/avatar/A11.jpg",
       role: authRole.user,
     };
-  return user;
+  return null;
 };
 export const getUserFromAWS = (user: any) => {
   if (user)

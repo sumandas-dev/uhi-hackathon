@@ -1,21 +1,19 @@
 import { Context } from "./classes/context";
-import { DiscoveryMessage } from "./classes/discovery-message";
+import { InitMessage } from "./classes/init-message";
 
-export class DiscoveryResponseModel {
+export class BookingInitRequestModel {
   context: Context;
-  message: DiscoveryMessage;
+  message: InitMessage;
 
-  static fromJson(json: Record<string, any>) {
-    const obj = new DiscoveryResponseModel();
+  fromJson(json: Record<string, any>) {
+    const obj = new BookingInitRequestModel();
     obj.context =
       json["context"] != null ? Context.fromJson(json["context"]) : null;
     obj.message =
-      json["message"] != null
-        ? DiscoveryMessage.fromJson(json["message"])
-        : null;
-
+      json["message"] != null ? InitMessage.fromJson(json["message"]) : null;
     return obj;
   }
+
   toJson() {
     const data: Record<string, any> = {};
     if (this.context != null) {

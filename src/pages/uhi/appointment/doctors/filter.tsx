@@ -18,6 +18,7 @@ import {
   listOfSystemOfMedicines,
   listOfLanguages,
 } from "../interfaces/doctor-filter.interface";
+import moment from "moment";
 export const Filter = ({
   onApply,
 }: {
@@ -27,8 +28,8 @@ export const Filter = ({
     searchWith: SearchWith.Name,
     typeOfConsultation: listOfConsultationTypes[0],
     cityCode: listOfCities.Bangalore,
-    startTime: new Date(),
-    endTime: new Date(),
+    startTime: moment().startOf("day").toISOString(),
+    endTime: moment().endOf("day").toISOString(),
   };
   const formik = useFormik<IDoctorFilter>({
     initialValues: filterInitialValue,
@@ -193,8 +194,14 @@ export const Filter = ({
         <Typography variant="h5">Availability</Typography>
         <DateRangePicker
           onChange={(value) => {
-            formik.setFieldValue("startTime", value[0]);
-            formik.setFieldValue("endTime", value[1]);
+            formik.setFieldValue(
+              "startTime",
+              moment(value[0]).startOf("day").toISOString()
+            );
+            formik.setFieldValue(
+              "endTime",
+              moment(value[1]).endOf("day").toISOString()
+            );
           }}
           value={[formik.values.startTime, formik.values.endTime]}
         />

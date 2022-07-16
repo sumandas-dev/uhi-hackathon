@@ -64,6 +64,6 @@ export interface IDoctorFilter {
   providerName?: string;
   typeOfConsultation: string;
   language?: string;
-  startTime: Date;
-  endTime: Date;
+  startTime: string;
+  endTime: string;
 }

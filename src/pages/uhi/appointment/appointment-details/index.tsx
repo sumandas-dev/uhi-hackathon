@@ -93,7 +93,6 @@ export const AppointmentDetails = () => {
     agent.id = passedData.doctorProfile.fulfillment.agent.id;
     // fulfillment.agent = passedData.doctorProfile.fulfillment.agent;
     fulfillment.agent = agent;
-    console.log(fulfillment.agent.toJson());
     fulfillment.id = passedData.doctorProfile.fulfillment.id;
     fulfillment.type = passedData.consultationType;
 
@@ -109,7 +108,7 @@ export const AppointmentDetails = () => {
     fulfillment.start = startTime;
     const endTime = new Time();
     endTime.time = passedData.timeSlot.end.time;
-    fulfillment.end = startTime;
+    fulfillment.end = endTime;
 
     order.id = nanoid();
     order.fulfillment = fulfillment;
@@ -207,7 +206,7 @@ export const AppointmentDetails = () => {
       const _bookingConfirmResponseModel =
         BookingConfirmResponseModel.fromJson(data);
       setBookingConfirmResponseModel(_bookingConfirmResponseModel);
-      console.log(_bookingConfirmResponseModel);
+      // console.log(_bookingConfirmResponseModel);
       setConfirming(false);
       navigate("/uhi/appointment-confirmed", {
         replace: true,

@@ -42,8 +42,6 @@ const Doctors = () => {
       ttl: ttl,
     });
 
-    console.log(_messageId);
-
     socket.on(_messageId, (data) => {
       console.log(data);
       if (newRequest) {

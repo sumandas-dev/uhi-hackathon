@@ -50,33 +50,27 @@ export const DoctorDetails = () => {
   }, [date]);
 
   useEffect(() => {
-    postRequest();
+    // postRequest();
     return () => {
       socket.disconnect();
     };
   }, []);
 
   const postRequest = () => {
-    console.log("sending request");
     //clear slots for new request
     let newRequest = true;
     setLoading(true);
     const filter: IDoctorFilter = {
       doctorAbhaId: passedData.doctorAbhaId,
+      doctorName: passedData.doctorAbhaId,
       cityCode: passedData.cityCode,
-      startTime: date,
-      endTime: moment(date).endOf("day").toDate(),
+      startTime: date.toISOString(),
+      endTime: moment(date).endOf("day").toDate().toISOString(),
       typeOfConsultation: consultationType,
     };
     const messageId = nanoid(24);
-    const ttl = 2;
-    uhi.searchDoctor({
-      filter: filter,
-      messageId: messageId,
-      transactionId: passedData.transactionId,
-      ttl: ttl.toString(),
-      providerUri: passedData.doctorProviderUri,
-    });
+    const ttl = 30;
+
     socket.on(messageId, (data) => {
       console.log(data);
       const discoveryResponseModel = DiscoveryResponseModel.fromJson(data);
@@ -92,10 +86,17 @@ export const DoctorDetails = () => {
         ]);
       }
       newRequest = false;
+      setLoading(false);
+    });
+    uhi.searchDoctor({
+      filter: filter,
+      messageId: messageId,
+      transactionId: passedData.transactionId,
+      ttl: ttl.toString(),
+      providerUri: passedData.doctorProviderUri,
     });
     setTimeout(() => {
       socket.off(messageId);
-      setLoading(false);
     }, ttl * 1000);
   };
 
@@ -105,19 +106,27 @@ export const DoctorDetails = () => {
       const timeSlot = new TimeSlotModel();
       timeSlot.start = new Time();
       timeSlot.end = new Time();
+      const startTimestamp = fulfillment.start.time.timestamp;
+      const endTimestamp = fulfillment.end.time.timestamp;
       timeSlot.start.time = {
-        timestamp: moment(`${datePart}${fulfillment.start.time.timestamp}`)
+        //sometime timestamp format = 'THH:mm' then add the datePart otherwise don't add
+        timestamp: moment(
+          `${moment(startTimestamp).isValid() ? "" : datePart}${startTimestamp}`
+        )
           .toDate()
           .toISOString(),
       };
       timeSlot.end.time = {
-        timestamp: moment(`${datePart}${fulfillment.end.time.timestamp}`)
+        timestamp: moment(
+          `${moment(endTimestamp).isValid() ? "" : datePart}${
+            fulfillment.end.time.timestamp
+          }`
+        )
           .toDate()
           .toISOString(),
       };
       return timeSlot;
     });
-    console.log(slots);
     return slots;
   };
   return (

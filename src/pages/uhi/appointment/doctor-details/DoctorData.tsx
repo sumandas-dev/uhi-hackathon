@@ -11,7 +11,7 @@ export const DoctorData = ({
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <Avatar
             sx={{
               height: "100%",
@@ -21,7 +21,7 @@ export const DoctorData = ({
             src={doctorProfile.imageUrl ?? "/assets/images/placeholder.jpg"}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           <Box
             sx={{
               display: "flex",

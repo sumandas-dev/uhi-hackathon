@@ -12,7 +12,7 @@ import { IDoctorProfile } from "../interfaces/doctor-profile.interface";
 import { Chip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { DoctorDetailsPagePassedData } from "../doctor-details";
-import { listOfConsultationTypes } from "../interfaces/doctor-filter.interface";
+import { IDoctorFilter } from "../interfaces/doctor-filter.interface";
 
 const UserInfo = styled("div")(({ theme }) => ({
   display: "flex",
@@ -57,9 +57,14 @@ const UserStatus = styled("div")(({ theme }) => ({
 interface DoctorCardProps {
   doctor: IDoctorProfile;
   transactionId: string;
+  filter: IDoctorFilter;
 }
 
-const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, transactionId }) => {
+const DoctorCard: React.FC<DoctorCardProps> = ({
+  doctor,
+  transactionId,
+  filter,
+}) => {
   const navigate = useNavigate();
   return (
     <AppCard
@@ -151,7 +156,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, transactionId }) => {
                   navigate("/uhi/doctor-details", {
                     state: {
                       doctorAbhaId: doctor.abhaId,
-                      consultationType: listOfConsultationTypes[0],
+                      consultationType: filter.typeOfConsultation,
                       doctorName: doctor.name,
                       doctorProviderUri: doctor.provider.url,
                       cityCode: doctor.cityCode,

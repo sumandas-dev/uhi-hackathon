@@ -26,7 +26,7 @@ export const Filter = ({
 }) => {
   const filterInitialValue = {
     searchWith: SearchWith.Name,
-    typeOfConsultation: listOfConsultationTypes[0],
+    typeOfConsultation: listOfConsultationTypes[1],
     cityCode: listOfCities.Bangalore,
     startTime: moment().startOf("day").toISOString(),
     endTime: moment().endOf("day").toISOString(),

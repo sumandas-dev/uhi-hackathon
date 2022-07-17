@@ -11,16 +11,22 @@ import { capitalCase } from "change-case";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { firestore } from "../../../../collection/services/auth/firebase/firebase";
+import { useAuthUser } from "../../../../collection/utility/AuthHooks";
 import { PageLoading } from "../../../uhi/appointment/doctors";
 import { BookingConfirmResponseModel } from "../../../uhi/model/booking-confirm-response-model";
 
 export const MyAppointments = () => {
+  const { user } = useAuthUser();
   const [appointments, setAppointments] =
     useState<BookingConfirmResponseModel[]>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const getAppointments = async () => {
-    const appointments = await (
-      await firestore.collection("appointments").get()
+    const appointments = (
+      await firestore
+        .collection("appointments")
+        .doc(user.uid)
+        .collection("appointments")
+        .get()
     ).docs.map((doc) => doc.data());
 
     const convertedData = appointments.map((appointment) =>

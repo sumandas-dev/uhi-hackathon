@@ -21,6 +21,7 @@ import { AppointmentConfirmPassedData } from "../appointment-confirmed";
 import { IDoctorProfile } from "../interfaces/doctor-profile.interface";
 import { LoadingButton } from "@mui/lab";
 import { Params } from "../../model/classes/params";
+import { firestore } from "../../../../collection/services/auth/firebase/firebase";
 
 export interface PaymentPassedData {
   bookingInitResponseModel: Record<string, any>;
@@ -59,6 +60,13 @@ export const Payment = () => {
     uhi.confirm(bookingInitResponseModel);
     socket.on(_messageId, (data) => {
       console.log(data);
+      //save the appointment in firestore
+      firestore
+        .collection("appointments")
+        .doc(user.uid)
+        .collection("appointments")
+        .doc()
+        .set(data);
       const _bookingConfirmResponseModel =
         BookingConfirmResponseModel.fromJson(data);
       // console.log(_bookingConfirmResponseModel);

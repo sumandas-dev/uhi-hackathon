@@ -1,4 +1,4 @@
-import { Grid, Paper, Stack } from "@mui/material";
+import { Button, Grid, Paper, Stack } from "@mui/material";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,7 +10,6 @@ import {
   euaEndpoint,
   euaSocketEndpoint,
 } from "../../../../shared/constants/uhi-constants";
-import { BookingConfirmResponseModel } from "../../model/booking-confirm-response-model";
 import { BookingInitRequestModel } from "../../model/booking-init-request-model";
 import { BookingInitResponseModel } from "../../model/booking-init-response-mode";
 import { Address } from "../../model/classes/address";
@@ -24,14 +23,13 @@ import { DiscoveryPrice } from "../../model/classes/discovery-price";
 import { Fulfillment, Time } from "../../model/classes/fulfillment";
 import { InitMessage } from "../../model/classes/init-message";
 import { Order } from "../../model/classes/order";
-import { Params } from "../../model/classes/params";
 import { TimeSlotModel } from "../../model/time-slot-model";
 import { DoctorData } from "../doctor-details/DoctorData";
 import { PageLoading } from "../doctors";
 import { IDoctorProfile } from "../interfaces/doctor-profile.interface";
 import { Quotation } from "./Quotation";
-import { LoadingButton } from "@mui/lab";
-import { AppointmentConfirmPassedData } from "../appointment-confirmed";
+import { PaymentPassedData } from "../payment";
+import * as _ from "lodash";
 
 export interface AppointmentDetailsPagePassedData {
   doctorProfile: IDoctorProfile;
@@ -51,10 +49,7 @@ export const AppointmentDetails = () => {
 
   const [bookingInitResponseModel, setBookingInitResponseModel] =
     useState<BookingInitResponseModel>(null);
-  const [bookingConfirmResponseModel, setBookingConfirmResponseModel] =
-    useState<BookingConfirmResponseModel>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [confirming, setConfirming] = useState<boolean>(false);
   const [finalQuote, setFinalQuote] = useState<string>(null);
   const [breakups, setBreakups] = useState<{ title: string; value: string }[]>(
     []
@@ -187,41 +182,7 @@ export const AppointmentDetails = () => {
       },
     ]);
   };
-  const postConfirmRequest = async () => {
-    console.log("confirm request sent");
-    setConfirming(true);
-    const _messageId = nanoid();
-    const ttl = 30;
-    bookingInitResponseModel.context.action = "confirm";
-    bookingInitResponseModel.message.order.payment.params = new Params();
-    bookingInitResponseModel.message.order.payment.params.transactionId =
-      nanoid();
-    bookingInitResponseModel.message.order.payment.type = "ON-ORDER";
-    bookingInitResponseModel.message.order.payment.status = "PAID";
-    bookingInitResponseModel.message.order.payment.tlMethod = "http/get";
-    bookingInitResponseModel.context.messageId = _messageId;
-    uhi.confirm(bookingInitResponseModel);
-    socket.on(_messageId, (data) => {
-      console.log(data);
-      const _bookingConfirmResponseModel =
-        BookingConfirmResponseModel.fromJson(data);
-      setBookingConfirmResponseModel(_bookingConfirmResponseModel);
-      // console.log(_bookingConfirmResponseModel);
-      setConfirming(false);
-      navigate("/uhi/appointment-confirmed", {
-        replace: true,
-        state: {
-          doctorProfile: passedData.doctorProfile,
-          confirmResponseModel: _bookingConfirmResponseModel,
-        } as AppointmentConfirmPassedData,
-      });
-    });
 
-    setTimeout(() => {
-      console.log("confirm ttl hit");
-      socket.off(_messageId);
-    }, ttl * 1000);
-  };
   return (
     <>
       <Paper elevation={0} sx={{ padding: 8 }}>
@@ -236,14 +197,22 @@ export const AppointmentDetails = () => {
               ) : (
                 <Quotation quote={finalQuote} breakups={breakups} />
               )}
-              <LoadingButton
-                loading={confirming}
+              <Button
                 disabled={loading}
                 variant="contained"
-                onClick={postConfirmRequest}
+                onClick={() => {
+                  navigate("/uhi/payment", {
+                    state: {
+                      bookingInitResponseModel:
+                        bookingInitResponseModel.toJson(),
+                      doctorProfile: passedData.doctorProfile,
+                      finalQuote: finalQuote,
+                    } as PaymentPassedData,
+                  });
+                }}
               >
                 Confirm
-              </LoadingButton>
+              </Button>
             </Stack>
           </Grid>
         </Grid>

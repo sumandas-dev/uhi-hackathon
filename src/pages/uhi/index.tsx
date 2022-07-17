@@ -2,6 +2,7 @@ import { AppointmentConfirmed } from "./appointment/appointment-confirmed";
 import { AppointmentDetails } from "./appointment/appointment-details";
 import { DoctorDetails } from "./appointment/doctor-details";
 import Doctors from "./appointment/doctors";
+import { Payment } from "./appointment/payment";
 
 export const samplePagesConfigs = [
   {
@@ -19,5 +20,9 @@ export const samplePagesConfigs = [
   {
     path: "/uhi/appointment-confirmed",
     element: <AppointmentConfirmed />,
+  },
+  {
+    path: "/uhi/payment",
+    element: <Payment />,
   },
 ];

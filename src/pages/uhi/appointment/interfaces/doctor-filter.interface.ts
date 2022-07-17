@@ -25,7 +25,7 @@ export const listOfCities = {
 };
 
 export const listOfConsultationTypes = [
-  // "Teleconsultation",
+  "Teleconsultation",
   "Physicalconsultation",
 ];
 

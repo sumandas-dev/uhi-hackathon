@@ -115,7 +115,11 @@ const Doctors = () => {
             ) : doctors.length === 0 ? (
               <EmptyMessage message="No Doctor Found" />
             ) : (
-              <DoctorGrid doctors={doctors} transactionId={transactionId} />
+              <DoctorGrid
+                doctors={doctors}
+                transactionId={transactionId}
+                filter={filterValues}
+              />
             )}
           </Paper>
         </Grid>

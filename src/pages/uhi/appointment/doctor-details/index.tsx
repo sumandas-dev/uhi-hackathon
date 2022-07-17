@@ -7,10 +7,7 @@ import { UHI } from "../../../../collection/services/uhi";
 import { euaSocketEndpoint } from "../../../../shared/constants/uhi-constants";
 import { Fulfillment, Time } from "../../model/classes/fulfillment";
 import { DiscoveryResponseModel } from "../../model/discovery-response-model";
-import {
-  IDoctorFilter,
-  listOfConsultationTypes,
-} from "../interfaces/doctor-filter.interface";
+import { IDoctorFilter } from "../interfaces/doctor-filter.interface";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import TextField from "@mui/material/TextField";
 import { Slots } from "./Slots";
@@ -43,7 +40,6 @@ export const DoctorDetails = () => {
   >([]);
   const uhi = UHI.getInstance();
   const passedData = state as DoctorDetailsPagePassedData;
-  const consultationType = listOfConsultationTypes[0];
 
   useEffect(() => {
     postRequest();
@@ -66,7 +62,7 @@ export const DoctorDetails = () => {
       cityCode: passedData.cityCode,
       startTime: date.toISOString(),
       endTime: moment(date).endOf("day").toDate().toISOString(),
-      typeOfConsultation: consultationType,
+      typeOfConsultation: passedData.consultationType,
     };
     const messageId = nanoid(24);
     const ttl = 30;
@@ -165,7 +161,7 @@ export const DoctorDetails = () => {
                   navigate("/uhi/appointment-details", {
                     replace: true,
                     state: {
-                      consultationType: consultationType,
+                      consultationType: passedData.consultationType,
                       doctorProfile: passedData.doctorProfile,
                       providerUrl: passedData.doctorProviderUri,
                       transactionId: passedData.transactionId,

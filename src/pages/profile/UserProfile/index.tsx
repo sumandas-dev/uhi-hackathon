@@ -10,6 +10,8 @@ import PersonalInfo from "./PersonalInfo";
 import ChangePassword from "./ChangePassword";
 import AppAnimate from "collection/core/AppAnimate";
 import { Fonts } from "../../../shared/constants/AppEnums";
+import BookOnlineIcon from "@mui/icons-material/BookOnline";
+import { MyAppointments } from "./my-appointments/MyAppointments";
 
 function a11yProps(index: number) {
   return {
@@ -24,6 +26,11 @@ const tabs = [
     id: 2,
     icon: <AiOutlineLock />,
     name: <IntlMessages id="common.changePassword" />,
+  },
+  {
+    id: 3,
+    icon: <BookOnlineIcon />,
+    name: "Appointments",
   },
 ];
 
@@ -72,6 +79,7 @@ const Account = () => {
           <Box className="account-tabs-content">
             {value === 0 && <PersonalInfo />}
             {value === 1 && <ChangePassword />}
+            {value === 2 && <MyAppointments />}
           </Box>
         </AccountTabsWrapper>
       </AppAnimate>

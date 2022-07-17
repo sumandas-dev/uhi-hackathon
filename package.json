@@ -24,7 +24,6 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/lodash": "^4.14.182",
     "@types/react-simple-maps": "^1.0.7",
     "@types/react-slick": "^0.23.7",
     "@types/react-window": "^1.8.5",

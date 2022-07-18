@@ -71,7 +71,7 @@ const Doctors = () => {
     discoveryResponse: DiscoveryResponseModel,
     filter: IDoctorFilter
   ): IDoctorProfile[] => {
-    const fulfillMents = discoveryResponse.message.catalog.fulfillments;
+    const fulfillMents = discoveryResponse.message?.catalog?.fulfillments ?? [];
     const doctors = fulfillMents.map((fulfillment) => {
       const doctor: IDoctorProfile = {
         abhaId: fulfillment.agent.id,
